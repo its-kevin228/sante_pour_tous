@@ -49,6 +49,30 @@ class Patient {
           DateTime.now(),
     );
   }
+
+  Patient copyWith({
+    String? id,
+    String? lastName,
+    String? firstName,
+    int? age,
+    String? bloodGroup,
+    String? electrophoresis,
+    String? allergies,
+    String? lastTreatment,
+    DateTime? createdAt,
+  }) {
+    return Patient(
+      id: id ?? this.id,
+      lastName: lastName ?? this.lastName,
+      firstName: firstName ?? this.firstName,
+      age: age ?? this.age,
+      bloodGroup: bloodGroup ?? this.bloodGroup,
+      electrophoresis: electrophoresis ?? this.electrophoresis,
+      allergies: allergies ?? this.allergies,
+      lastTreatment: lastTreatment ?? this.lastTreatment,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }
 
 const List<String> bloodGroups = [

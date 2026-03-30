@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screens/patient_list_screen.dart';
 import 'theme/app_theme.dart';
-import 'theme/theme_preview_screen.dart';
 
 void main() {
   runApp(const SantePourTousApp());
@@ -16,7 +16,7 @@ class SantePourTousApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Santé Pour Tous',
       theme: AppTheme.light(),
-      home: const ThemePreviewScreen(),
+      home: const PatientListScreen(),
     );
   }
 }

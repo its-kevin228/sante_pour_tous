@@ -99,6 +99,37 @@ class AppDatabase {
     await db.insert('patients', patient.toMap());
   }
 
+  Future<void> updatePatient(Patient patient) async {
+    final db = await database;
+    await db.update(
+      'patients',
+      patient.toMap(),
+      where: 'id = ?',
+      whereArgs: [patient.id],
+    );
+  }
+
+  Future<void> deletePatient(String patientId) async {
+    final db = await database;
+    await db.transaction((txn) async {
+      await txn.delete(
+        'vital_signs',
+        where: 'patient_id = ?',
+        whereArgs: [patientId],
+      );
+      await txn.delete(
+        'vaccination_records',
+        where: 'patient_id = ?',
+        whereArgs: [patientId],
+      );
+      await txn.delete(
+        'patients',
+        where: 'id = ?',
+        whereArgs: [patientId],
+      );
+    });
+  }
+
   Future<List<Patient>> getPatients() async {
     final db = await database;
     final result = await db.query('patients', orderBy: 'created_at DESC');
