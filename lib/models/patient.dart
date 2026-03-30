@@ -92,5 +92,4 @@ const List<String> electrophoresisTypes = [
   'AC',
   'SS',
   'SC',
-  'Autre',
 ];

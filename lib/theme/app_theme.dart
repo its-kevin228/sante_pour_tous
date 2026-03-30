@@ -116,7 +116,19 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
-        hintStyle: baseText.bodyMedium?.copyWith(color: AppColors.textMuted),
+        hintStyle: baseText.bodyMedium?.copyWith(
+          color: const Color(0xFF6E5A2E),
+        ),
+        labelStyle: baseText.bodyMedium?.copyWith(
+          color: AppColors.brandText,
+          fontWeight: FontWeight.w500,
+        ),
+        floatingLabelStyle: baseText.bodyMedium?.copyWith(
+          color: AppColors.brandText,
+          fontWeight: FontWeight.w600,
+        ),
+        prefixIconColor: AppColors.brandText,
+        suffixIconColor: AppColors.brandText,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
@@ -146,6 +158,21 @@ class AppTheme {
             height: 1.15,
           ),
           shape: RoundedRectangleBorder(borderRadius: AppRadii.sm),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AppColors.brandText,
+          textStyle: GoogleFonts.rubik(
+            fontWeight: FontWeight.w600,
+            fontSize: 13,
+          ),
+        ),
+      ),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        textStyle: baseText.bodyMedium?.copyWith(
+          color: AppColors.brandText,
+          fontWeight: FontWeight.w500,
         ),
       ),
       checkboxTheme: CheckboxThemeData(

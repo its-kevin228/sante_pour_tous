@@ -397,7 +397,6 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
   }
 
   Future<void> _exportPdf() async {
-    final messenger = ScaffoldMessenger.of(context);
     final data = await _dataFuture;
 
     if (!mounted || data == null) {
@@ -415,20 +414,23 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
     }
 
     final fileName = p.basename(path);
-    messenger.showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('PDF "$fileName" prêt')),
     );
 
-    _showPdfActions(path, fileName);
+    await _showPdfActions(path, fileName);
   }
 
   Future<void> _showPdfActions(String path, String fileName) async {
-    final messenger = ScaffoldMessenger.of(context);
+    if (!mounted) {
+      return;
+    }
 
     await showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
       builder: (sheetContext) {
+        final rootMessenger = ScaffoldMessenger.of(sheetContext);
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.md),
@@ -436,11 +438,14 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Export terminé', style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  'Export terminé',
+                  style: Theme.of(sheetContext).textTheme.titleMedium,
+                ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
                   fileName,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(sheetContext).textTheme.bodySmall,
                 ),
                 const SizedBox(height: AppSpacing.md),
                 Row(
@@ -454,7 +459,7 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
                           }
                           Navigator.of(sheetContext).pop();
                           if (result.type != ResultType.done) {
-                            messenger.showSnackBar(
+                            rootMessenger.showSnackBar(
                               const SnackBar(
                                 content: Text('Impossible d\'ouvrir le PDF sur cet appareil'),
                               ),
